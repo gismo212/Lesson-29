@@ -1,0 +1,126 @@
+gem "sinatra"
+gem "sinatra-contrib"
+gem "sqlite3"
+gem "activerecord"
+gem "sinatra-activerecord"
+вписываем данные гемы в gemfile для того что бы они установлись у  пользователей после залива на хостинг
+
+group :development do  - данный  синтаксис значит что 
+  gem "tux"  гем будет пропущен(нужен только для разработки)
+end
+
+gemfile.lock -файл создан для предотвращения конфликтов гемов,здесь автоматически вносяться гемы
+
+config.ru-файл нужен для утилиты tux и при развертывании приложении
+
+deploy(deployment)-развертывание или залив на хостинг
+
+require 'sinatra/activerecord' подключение gema active record 
+active record -gem для работы с бд
+
+set :database, {adapter: "sqlite3", database: "barbershop.db"}-создаем подключение к базе данных
+
+сущность(суть)-описывает событие ,то с чем мы работаем
+
+class Client < ActiveRecord::Base  # создание сущности (путем наследования функционала из бд)
+end
+
+tux -это командная строка activerecord
+
+rake -T просмотр параметр rake
+
+3 команды rake:
+создаёт новую миграцию в db/migrate/:
+
+rake db:create_migration NAME=name_of_migration
+применяет (выполняет) созданную миграцию:
+
+rake db:migrate
+возврат к предыдущей миграции:
+
+rake db:rollback
+
+Миграция - это очередная версия нашей базы данных.
+
+Открываем созданный файл и создаём таблицу в базе данных:
+
+# File db/migrate/389173729_create_clients.rb
+
+таким образом создается миграция 
+class CreateClients < ActiveRecord::Migration[5.2]
+в результате миграции были добавлены методы в том числе created
+  def change
+    create_table :clients do |t|        принимает параметр в виде символа с именем таблицы
+      t.text :name           данный код говорит о том что в таблице clien 
+      t.text :phone          будут созданные таблицы с типом текст
+      t.text :datestamp
+      t.text :barber
+                      
+        t.timestamps        end
+  end
+end
+id primary key будет создан автоматически
+
+t.timestamps создаст 2 дополнительных столбца created_at и updated_at дата создания и обновления сущности
+
+
+# db/migrate/37837298_create_barbers.rb
+
+class CreateBarbers < ActiveRecord::Migration[5.2]
+  def change
+    create_table :barbers do |t|
+      t.text :name
+
+      t.timestamps
+    end
+
+    Barber.create :name => "Joe Doe"        добовление значений в бд под видом хэша 
+    Barber.create :name => "Elon Musk"
+    Barber.create :name => "Alisha Moon"
+    Barber.create :name => "Marie Fooo-bar"
+
+  end
+end
+
+Совет от @krdprog: чтобы в командной строке sqlite3 каждый раз не писать, показывать в столбец и с заголовками, создайте в домашней директории файл .sqliterc с содержимым:
+
+.headers on
+.mode column
+
+Откроем консоль tux
+
+tux
+И введём:
+
+Barber.count
+Из этой консоли можно создать дополнительные сущности.
+
+Замечание:
+Barber.create # создаёт в БД
+
+b = Barber.new # создаёт в памяти
+b.save # после этого надо сделать
+
+
+get '/' do
+	@barbers= Barber.all  вывод содержимого из таблицы
+	erb :index
+end
+
+# + in views/index.erb
+
+<h2>Список парикмахеров:</h2>
+
+<ul>
+<% @barbers.each do |barber| %>
+  <li><%= barber.name %></li>
+<% end %>
+</ul>
+
+
+get '/' do
+
+@barbers = Barber.order "created_at DESC"  #	Сортировка .order:
+	erb :index
+end
+
