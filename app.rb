@@ -12,7 +12,26 @@ end
 class Barber < ActiveRecord::Base
 end
 
+before do
+	@barbers= Barber.all
+end
+
 get '/' do
 	@barbers= Barber.all
 	erb :index
+end
+
+
+get '/visit' do
+	erb :visit
+end
+
+post'/visit' do
+	@phone=params[:number]
+	@datetime=params[:datetime]
+	@username=params[:username]
+	@barber=params[:barber]
+	@color=params[:color]
+
+	erb "<h2>Спасибо,вы записаны</h2>" 
 end
