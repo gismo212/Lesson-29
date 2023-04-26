@@ -12,6 +12,9 @@ end
 class Barber < ActiveRecord::Base
 end
 
+class Contact < ActiveRecord::Base
+end
+
 before do
 	@barbers= Barber.all
 end
@@ -29,9 +32,30 @@ end
 post'/visit' do
 	@phone=params[:number]
 	@datetime=params[:datetime]
-	@username=params[:username]
+	@name=params[:name]
 	@barber=params[:barber]
 	@color=params[:color]
 
+	#name,phone ,datestamp,barber,color
+	c = Client.new
+	c.name = @name
+	c.phone = @phone
+	c.datestamp = @datetime
+	c.barber = @barber
+	c.color = @color
+	c.save
+
+	
+
 	erb "<h2>Спасибо,вы записаны</h2>" 
 end
+
+get'/contacts' do
+	erb :contacts
+end
+
+ post'/contacts' do
+ 	@mail=params[:mail]
+	erb "#{@mail}"
+ end
+
