@@ -5,7 +5,7 @@
   $(function() {
   $('#color').simplecolorpicker(); 
   $('#datetimepicker').datetimepicker();
-	
+  
   });
 
 </script> 
@@ -14,35 +14,21 @@
 <form action="/visit" method="POST" role="form">
   <div class="mb-3">
     <label>You'r Name </label>
-    <input  name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%=@username%>">
+    <input  name="client[name]" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="">
   </div>
   <div class="mb-3">
     <label>Time to visit </label>
-    <input id="datetimepicker" name="datetime" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%=@datetime%>">
+    <input id="datetimepicker" name="client[datestamp]" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="">
   </div>
   <div class="mb-3">
     <label>You'r number </label>
-    <input name="number" type="text" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" value="<%=@phone%>">
+    <input name="client[phone]" type="text" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" value="">
   </div>
 
-
-  <div class="mb-3">
-    <label>You'r barber </label>
-   <select name="barber"class="form-select">
-    <!-- <option <%=@barber=='Peter'? 'selected':''%> >Peter</option>
-    <option <%=@barber=='Jerry'? 'selected':''%> >Jerry</option>
-    <option   <%=@barber=='Gus'? 'selected':''%> >Gus</option> -->
-      <% @barbers.each do |item| %>
-      <option <%= @barber == item['name']?'selected' :'' %>><%=item['name']%></option> 
-
-      <%end%>
-
-   </select>
-  </div>
 
   <div class="mb-3">
     <label>Choose color</label>
-  <select id='color' name="color">
+  <select id='color' name="client[color]">
     <option value="#7bd148">Green</option>
     <option value="#5484ed">Bold blue</option>
     <option value="#a4bdfc">Blue</option>
