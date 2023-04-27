@@ -14,15 +14,15 @@
 <form action="/visit" method="POST" role="form">
   <div class="mb-3">
     <label>You'r Name </label>
-    <input  name="client[name]" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="">
+    <input  name="client[name]" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= @c.name %>">
   </div>
   <div class="mb-3">
     <label>Time to visit </label>
-    <input id="datetimepicker" name="client[datestamp]" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="">
+    <input id="datetimepicker" name="client[datestamp]" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= @c.datestamp %>">
   </div>
   <div class="mb-3">
     <label>You'r number </label>
-    <input name="client[phone]" type="text" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" value="">
+    <input name="client[phone]" type="text" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" value="<%=@c.phone %>">
   </div>
 
 
