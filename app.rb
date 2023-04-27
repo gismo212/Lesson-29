@@ -58,3 +58,8 @@ end
  	erb "<h2>Спасибо,вы записаны</h2>" 
 
  end 
+
+ get '/barber/:id' do
+ 	erb :barber
+ end
+
