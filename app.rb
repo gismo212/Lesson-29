@@ -37,8 +37,9 @@ post'/visit' do
 	c= Client.new params[:client]
 	if c.save
 		erb "<h2>Спасибо,вы записаны</h2>"
-	else	
-		erb "<h2>Ошибка</h2>"
+	else
+		@error=c.errors.full_messages.first
+		erb :visit
 	end
 end
 
